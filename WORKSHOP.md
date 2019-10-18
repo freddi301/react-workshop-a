@@ -9,7 +9,7 @@
     - debugger for firefox
     - error lens
     - git lens
-    - live share + live share audio
+    - live share + live share audio (fare login)
     - markdon all in one
     - one dark pro
     - paste json as code
@@ -182,11 +182,46 @@ approfondimenti: [struttura package.json](https://docs.npmjs.com/files/package.j
 
 formattare l'intero progetto, verificare, commit
 
+## React dev tools
+
+- aprire l'app nel browser
+- assicurarsi di aver istallato l'estensione react-dev-tools
+- aprire il pannello sviluppatori del browser
+- andare nel tab `⚛️Components`
+  - si vedrà la struttura dei componenti nella pagina
+  - per utilizzare a pieno questo strumento
+    - nelle impostazioni (bottone `⚙`)
+      - `⚙General` -> `highlight updates` -> `✓`
+      - `<>Components` -> `hide components where` -> `type` `equals` `host`
+        - questo nasconde i componenti come div, span ecc
+        - questa impostazione è anche molto utile se si vogliono nascondere componenti presenti ovunque ma non significativi (es: Context.Consumer)
+  - clicchiamo sul componente `LikeCounter`
+    - sul lato destro vedremo
+      - props (attributi passati al componente)
+      - hooks (contenuti delle hook, non tutte si possono ispezionare)
+      - renderedBy (da chi è estato richiamato il componente)
+        - la parte sinistra visualizza la gerarchia dei componenti nella pagina
+        - invece renderedBy il `call stack` dei componenti
+  - sperimentare col contatore like
+    - alcuni campi nel pannello ispezione sono editabili
+    - è molto utile il bottone `<>` che ci riporta al file sorgente che ha generato il componente selezionato
+- andare nel tab `⚛️Profiler`
+  - qui possiamo controllare le performance della nostra app
+  - clicchiamo sul bottone start profiling `⏺`
+  - clicchiamo sul bottone stop profiling `⏺`
+  - possiamo vedere le misurazioni di quanto tempo i vari componenti hanno impiegato per renderizzare
+  - è anche possibile vedere perchè un componente si aggiornato
+  - è consigliabile tenere il tempo di rendering sotto i 17ms, sia dei singoli elementi che dell'intera app
+
+
 # FAQ
 
 # TODO
 
-- [ ] react dev tools, (filter, rednered by), profiler (why rerender)
+- [ ] vscode chrome debugger
+- [ ] styled-component
+- [ ] styled-component vscode plugin
+- [ ] styled-component theme (text color, background color)
 - [ ] absolute import
 - [ ] memo (lista)
 - [ ] react fragment
@@ -198,31 +233,29 @@ formattare l'intero progetto, verificare, commit
 - [ ] useCallback (on click)
 - [ ] useMemo (derived prop)
 - [ ] useRef (dom manipulation)
-- [ ] useDebugValue
 - [ ] https://it.reactjs.org/docs/hooks-rules.html
 - [ ] https://it.reactjs.org/docs/hooks-intro.html
-- [ ] styled-component
-- [ ] styled-component vscode plugin
-- [ ] styled-component theme (text color, background color)
-- [ ] vscode chrome debugger
 - [ ] git flow
-- [ ] custom hooks, useDebounce (ricerca), useThrottle (clicks)
+- [ ] fetch cancel signal
+- [ ] process.env
 - [ ] spiegazione cra
 - [ ] js next, destructuring, spread, const
+- [ ] custom hooks
+- [ ] useDebugValue
+- [ ] useDebugPropChanges
 - [ ] useLocalStorage (dark - white theme)
+- [ ] useDebounce (ricerca)
+- [ ] useThrottle (clicks)
 - [ ] useMediaQuery
 - [ ] useMemoizedCallbacks
 - [ ] useInterval
 - [ ] useExpiration
-- [ ] useDebugPropChanges
-- [ ] process.env
-- [ ] useUndoState
 - [ ] useUndoReducer
-- [ ] fetch cancel signal
+- [ ] state strategy (useState, useUndoState, useLocalStorage)
+- [ ] useUndoState
 - [ ] react spring useSpring (accordion, svg)
 - [ ] useScript
 - [ ] useKeyPress
 - [ ] useOnScreen (insfinites scroll)
 - [ ] usePrevious
 - [ ] useHover
-- [ ] state strategy (useState, useUndoState, useLocalStorage)
