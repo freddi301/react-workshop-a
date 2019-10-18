@@ -19,6 +19,7 @@
     - eslint
     - vscode icons
     - vscode-styled-components
+    - prettier
 - [nodejs](https://nodejs.org/en/) 10 (su linux si consiglia [nvm](https://github.com/nvm-sh/nvm))
   - [yarn](https://yarnpkg.com/lang/en/)
 - [gitkraken](https://www.gitkraken.com/)
@@ -143,30 +144,66 @@ andremo a realizzare bottone `like` con conteggio di click
     ```
   - salva, verifica, commit
 
+## Formattazione automatica
+
+Per velocizzare la scrittura, e mantenere il codice indentato in maniera omogenea anche avendo più collaboratori si puo usare lo strumento `prettier`
+
+- in vscode
+  - istallare l'estensione `prettier`
+  - nelle impostazioni (`ctrl+,` su linux)
+    - nella sezione `workspace`
+      - spuntare la voce `format on save`
+    - noterete nel pannello `source control` che si è aggiunto il file `.vscode/settings.json`
+      - va committato
+    - la sezione `User` sono impostazioni globali per vscode
+    - la sezione `Workspace` sono impostazioni della cartella corrente
+  - in questo modo, ogni volta che salviamo un file, verrà formattato automaticamente con gli standard della community
+  - è possibile formattare il file anche con
+    - `ctrl+shift+i` su linux
+    - `ctrl+shift+p` -> `format document`
+
+- per formattare l'intero progetto
+  - nel file `package.json`, nella sezione `scripts` aggiungiamo
+    ```
+    "scripts": {
+      "start": "react-scripts start",
+      "build": "react-scripts build",
+      "test": "react-scripts test",
+      "eject": "react-scripts eject",
+      "format": "prettier --write \"./**/*.{js,jsx,json,ts,tsx}\""
+    }
+    ```
+  - lanciamo il comando `yarn add -D prettier`
+    - `-D` sta per dipendenza di sviluppo, ovvero che non serve quando il progetto va in produzione. noterete infatti che la dipendenza viene salvata in una sezione diversa (`devDependencies`) del `package.json`
+  - da ora in poi ci basterà lanciare `yarn format` per formattare l'intero progetto
+    - usando la formula `yarn <il tuo comando>` si possono eseguire gli scripts custom che avete aggiunto nel `package.json`
+
+approfondimenti: [struttura package.json](https://docs.npmjs.com/files/package.json), [prettier pre-commit hook](https://prettier.io/docs/en/precommit.html)
+
+formattare l'intero progetto, verificare, commit
+
 # FAQ
 
 # TODO
 
-- [ ] useState (contatore like)
-- [ ] prettier in vscode, format on save, fformat script
+- [ ] react dev tools, (filter, rednered by), profiler (why rerender)
+- [ ] absolute import
+- [ ] memo (lista)
+- [ ] react fragment
 - [ ] context (user session)
 - [ ] portal (modale)
 - [ ] render prop (lista eterogena)
-- [ ] react fragment
-- [ ] memo (lista)
 - [ ] useEffect (fetch)
 - [ ] useReducer (fetch custom hook)
 - [ ] useCallback (on click)
 - [ ] useMemo (derived prop)
 - [ ] useRef (dom manipulation)
-- [ ] liveshare
 - [ ] useDebugValue
 - [ ] https://it.reactjs.org/docs/hooks-rules.html
 - [ ] https://it.reactjs.org/docs/hooks-intro.html
 - [ ] styled-component
 - [ ] styled-component vscode plugin
 - [ ] styled-component theme (text color, background color)
-- [ ] react dev tools, (filter, rednered by), profiler (why rerender)
 - [ ] vscode chrome debugger
 - [ ] git flow
 - [ ] custom hooks, useDebounce (ricerca), useThrottle (clicks)
@@ -188,5 +225,4 @@ andremo a realizzare bottone `like` con conteggio di click
 - [ ] useOnScreen (insfinites scroll)
 - [ ] usePrevious
 - [ ] useHover
-- [ ] absolute import
 - [ ] state strategy (useState, useUndoState, useLocalStorage)
