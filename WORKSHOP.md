@@ -278,7 +278,35 @@ E possibile usare il debugger direttamente in vscode, velocizzando cosi molto il
 - ed inseriamo il componente in `src/App.tsx`
 - sperimentare il funzionamento, salva, commit
 
+## vscode utilities
+
+- rinominare una variabile o l'attributo di un oggetto
+  - click destro sul nome della variabile
+  - `rename symbol`
+  - il nome verrà cambiato anche in tutti i posti in cui viene usato
+- esportare in un nuovo file
+  - click destro sul nome di una funzione
+  - `refactor` -> `move to new file`
+  - sposterà la funzione in un nuovo file, con tutti gli import necessari
+  - utile quando un file è cresciuto troppo e si vuole riorganizzare il codice
+  - funziona anche su una selezione (piu funzioni)
+- spostare i file
+  - spostando i file typescript (.ts e .tsx) nel pannello esplora, vscode vi darà la possibilita di aggiustare automaticamente tutti gli import relativi
+  - utile quando si spostano file, non si rompe il progetto
+- finda all references
+  - utile quando si vuole controllare in quanti punti viene utilizzata una funzione
+  - click destro sul nome della funzione `find all references`
+- vai alla definizione
+  - utile quando si vuole vedere la definizione di una funzione
+  - `ctrl`+click sul nome della funzione
+  - `ctrl+alt`+click sul nome della funzione per aprire accanto
+  - click destro sul nome della funzione `peek references` per aprire in un popup
+
 # FAQ
+
+## Nomenclatura hooks
+
+Tutti gli hook devono avere il prefisso `use`, non è solo estetico, è necessario per alcuni parti del framework. Inoltre è anche utile per fare una ricerca su tutto il progetto, per esempio cercando `function use` troverete tutti gli hook custom presenti
 
 # TODO
 
