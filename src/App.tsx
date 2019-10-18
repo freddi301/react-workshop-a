@@ -3,6 +3,7 @@ import logo from "./logo.svg";
 import "./App.css";
 import { LikeCounter } from "./LikeCounter";
 import { TitleChanger } from "./TitleChanger";
+import { Arcobaleno } from "./Arcobaleno";
 
 const App: React.FC = () => {
   return (
@@ -12,6 +13,7 @@ const App: React.FC = () => {
         Workshop (react + hooks + typescript)
         <LikeCounter />
         <TitleChanger />
+        <Arcobaleno />
       </header>
     </div>
   );

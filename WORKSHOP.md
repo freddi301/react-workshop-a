@@ -31,6 +31,7 @@
 - [arrow function](https://developer.mozilla.org/it/docs/Web/JavaScript/Reference/Functions_and_function_scope/Arrow_functions)
 - [react hoooks](https://it.reactjs.org/docs/hooks-intro.html)
 - [typescript import syntax](https://www.typescriptlang.org/docs/handbook/modules.html)
+- [template literlas](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)
 
 # Progetto
 
@@ -302,17 +303,106 @@ E possibile usare il debugger direttamente in vscode, velocizzando cosi molto il
   - `ctrl+alt`+click sul nome della funzione per aprire accanto
   - click destro sul nome della funzione `peek references` per aprire in un popup
 
+## [styled-components](https://www.styled-components.com/)
+
+E la soluzione [css-in-js](https://codeburst.io/styling-in-react-css-in-js-47a68c15a770) più utilizzata nel mondo react.
+
+Css-in-js permette di organizzare meglio gli stili, offre strumenti più potenti ed evita tutta una serie di problematiche come la collisione dei nome delle classi.
+
+- installare l'estensione styled-component
+- istallare la dipendenza `yarn add styled-component` (ci fornisce autoformattazione, colorazione del codice, e suggerimenti)
+- istallare l'integrazione con typescript `yarn add -D @types/styled-components`
+
+creare il file `src/Arcobaleno.tsx`
+
+```typescript
+import React from "react";
+import styled from "styled-components";
+
+export function Arcobaleno() {
+  return (
+    <StyledBorder>
+      <StyledBody>
+        <StyledRed size={12}>R</StyledRed>
+        <StyledGreen size={16}>G</StyledGreen>
+        <StyledBlue size={14}>B</StyledBlue>
+      </StyledBody>
+    </StyledBorder>
+  );
+}
+
+// gli styled component dovrebbero avere il prefisso Styled
+
+const StyledBorder = styled.div`
+  background: linear-gradient(
+    45deg,
+    rgba(255, 0, 0, 1) 0%,
+    rgba(245, 255, 0, 1) 17%,
+    rgba(9, 255, 0, 1) 32%,
+    rgba(0, 245, 255, 1) 50%,
+    rgba(38, 0, 255, 1) 67%,
+    rgba(239, 0, 255, 1) 83%,
+    rgba(255, 0, 0, 1) 100%
+  );
+  border-radius: 8px;
+  padding: 4px;
+`;
+
+const StyledBody = styled.div`
+  display: flex;
+  border-radius: 4px;
+  overflow: hidden;
+`;
+
+// si possono specificare parametri aggiuntivi per il componente styled
+// oltre a quelli dell'elemento html presenti di default
+const StyledTile = styled.div<{ size: number }>`
+  color: white;
+  text-shadow: 0px 0px 4px black;
+  font-size: ${({ size }) => size}px; /* si può accedere ai parametri aggiuntivi */
+  padding: 0.5em;
+  opacity: 0.8;
+  &:hover {
+    transform: scale(1.5);
+    opacity: 1;
+    transition: 1s;
+  }
+  user-select: none;
+`;
+
+// un componente styled può ereditare da un altro componente styled
+const StyledRed = styled(StyledTile)`
+  background-color: red;
+`;
+
+const StyledGreen = styled(StyledTile)`
+  background-color: green;
+`;
+
+const StyledBlue = styled(StyledTile)`
+  background-color: blue;
+`;
+```
+
 # FAQ
 
 ## Nomenclatura hooks
 
 Tutti gli hook devono avere il prefisso `use`, non è solo estetico, è necessario per alcuni parti del framework. Inoltre è anche utile per fare una ricerca su tutto il progetto, per esempio cercando `function use` troverete tutti gli hook custom presenti
 
+## .ts .tsx
+
+I file typescript possono essere salvati con due estensioni
+
+- .ts per file che non contengono [JSX](https://it.reactjs.org/docs/introducing-jsx.html)
+- .tsx per i file che contengono [JSX]
+
+ci sono alcune differenze nella sinstassi per i due tipi di file 
+
 # TODO
 
-- [ ] styled-component
-- [ ] styled-component vscode plugin
-- [ ] styled-component theme (text color, background color)
+- [ ] styled-component theme (text color, background color) + color switch
+- [ ] todo mvc
 - [ ] absolute import
 - [ ] memo (lista)
 - [ ] react fragment
