@@ -1,6 +1,7 @@
 import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
+import { LikeCounter } from "./LikeCounter";
 
 const App: React.FC = () => {
   return (
@@ -8,6 +9,7 @@ const App: React.FC = () => {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         Workshop (react + hooks + typescript)
+        <LikeCounter/>
       </header>
     </div>
   );

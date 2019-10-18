@@ -3,6 +3,22 @@
 ## Software da istallare
 
 - [vscode](https://code.visualstudio.com/)
+  - estensioni 
+    - bookmarks
+    - debugger for chrome
+    - debugger for firefox
+    - error lens
+    - git lens
+    - live share + live share audio
+    - markdon all in one
+    - one dark pro
+    - paste json as code
+    - rainbow brackets
+    - todo tree
+    - tslint
+    - eslint
+    - vscode icons
+    - vscode-styled-components
 - [nodejs](https://nodejs.org/en/) 10 (su linux si consiglia [nvm](https://github.com/nvm-sh/nvm))
   - [yarn](https://yarnpkg.com/lang/en/)
 - [gitkraken](https://www.gitkraken.com/)
@@ -77,20 +93,73 @@ Eventualmente aggiungere il comando al PATH
 - src
   - contiene i file sorgenti
 
+## Like counter
+
+andremo a realizzare bottone `like` con conteggio di click
+
+- in vscode
+  - creaiamo un nuovo file `src/LikeCounter.tsx`
+  - con il contenuto
+      ```typescript
+      import React from "react"
+
+      export function LikeCounter(){
+        return <button>👍</button>
+      }
+      ```
+  - nel file `src/App`
+    - premendo `ctrl+p` (linux) si apre la ricerca veloce dei file (aiuta molto quando il numero di file è molto grande, per questo è consigliato chiamare i file con nomi univoci all'interno del progetto e dargli lo stesso nome del componente che esporta)
+    - aggiungere `<LikeCounter/>`
+      - mentre si digita il nome, si può gia apprezzare l'autocomplete
+      - premendo invio dovrebbe aggiungersi l'import in automatico
+        - nel caso contrario controllare nelle impostazioni (`ctrl+,` su linux) la voce `auto imports typescript` sia abilitata
+  - salvare le modifiche in tutti i file con il pulsante `save all` 💾 in alto a sinistra nel menu esplora
+- nel browser
+  - verificare le modifiche
+- in vscode, file `src/LikeCounter`
+  - aggiungamo una riga, ci servira per portare il conto dei click
+    ```typescript
+    import React, { useState } from "react"
+
+    export function LikeCounter(){
+      const [likes, setLikes] = useState(0)
+      return <button>{likes} 👍</button>
+    }
+    ```
+  - useState è una react hook, serve per mantenere lo stato
+  - come unico parametro gli passiamo lo stato iniziale
+  - ritorna un array di due elementi
+    - 1 lo stato attuale
+    - 2 la funzione che useremo per modificare lo stato
+  - si notera che al click non succede nulla
+  - aggiungiamo un azione sul click
+    ```typescript
+    import React, { useState } from "react"
+
+    export function LikeCounter(){
+      const [likes, setLikes] = useState(0)
+      return <button onClick={() => setLikes(likes + 1)}>{likes} 👍</button>
+    }
+    ```
+  - salva, verifica, commit
+
 # FAQ
 
 # TODO
 
+- [ ] useState (contatore like)
+- [ ] prettier in vscode, format on save, fformat script
 - [ ] context (user session)
 - [ ] portal (modale)
 - [ ] render prop (lista eterogena)
+- [ ] react fragment
 - [ ] memo (lista)
-- [ ] useState (contatore like)
 - [ ] useEffect (fetch)
 - [ ] useReducer (fetch custom hook)
 - [ ] useCallback (on click)
 - [ ] useMemo (derived prop)
 - [ ] useRef (dom manipulation)
+- [ ] liveshare
 - [ ] useDebugValue
 - [ ] https://it.reactjs.org/docs/hooks-rules.html
 - [ ] https://it.reactjs.org/docs/hooks-intro.html
@@ -99,7 +168,6 @@ Eventualmente aggiungere il comando al PATH
 - [ ] styled-component theme (text color, background color)
 - [ ] react dev tools, (filter, rednered by), profiler (why rerender)
 - [ ] vscode chrome debugger
-- [ ] prettier in vscode, format on save, fformat script
 - [ ] git flow
 - [ ] custom hooks, useDebounce (ricerca), useThrottle (clicks)
 - [ ] spiegazione cra
@@ -121,3 +189,4 @@ Eventualmente aggiungere il comando al PATH
 - [ ] usePrevious
 - [ ] useHover
 - [ ] absolute import
+- [ ] state strategy (useState, useUndoState, useLocalStorage)
