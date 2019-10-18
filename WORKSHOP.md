@@ -4,6 +4,7 @@
 
 - [vscode](https://code.visualstudio.com/)
 - [nodejs](https://nodejs.org/en/) 10 (su linux si consiglia [nvm](https://github.com/nvm-sh/nvm))
+  - [yarn](https://yarnpkg.com/lang/en/)
 - [gitkraken](https://www.gitkraken.com/)
 - react dev tools [chrome](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi) [firefox](https://addons.mozilla.org/it/firefox/addon/react-devtools/)
 
@@ -26,3 +27,32 @@ Eventualmente aggiungere il comando al PATH
 - lanciare il comando `yarn create react-app my-app --typescript` (leggere l'output)
 - lanciare vscode
   - andare su `file` -> `open folder` e selezionare la cartella che è stata appena create col comando precedente
+- lanciare gitkraken
+  - aprire il repository che corrisponde alla cartella creata in precedenza
+  - si vedrà il primo commit già presente
+
+## Sviluppo
+
+- in vscode
+  - premere `ctrl+shift+p` (su linux)
+    - scrivere `integrated` (versione inglese) e premere invio
+    - si aprira un terminale, già impostato alla cartella corrente
+  - lanciare il comando `yarn start`
+    - questo farà partire l' applicazione
+    - leggere l'output del comando per i dettagli
+- nel browser andare sulla url `localhost:3000`
+  - vedremo l'app in esecuzione
+- in vscode
+  - aprire (nel pannello di sinistra) l'esplora file
+    - aprire il file `src/App.tsx`
+  - cambiare il titolo da `Learn React` a `Workshop (react + hooks + typescript)`
+  - salvare il file premendo `ctrl+s`
+  - verificare nel browser la modifica (il reload è automatico)
+  - aprire (nel pannello di sinistra) `source control`
+    - qui si possono vedere i file modificati dall'ultimo commit
+    - passando sopra al nome compaiono dei bottoni
+    - aggiungere il file appena modificato all'area di staging (col pulsante `+`)
+    - scrivere il messaggio di commit `ch: title`
+    - committare (pulsante `✓`)
+- in gitkraken
+  - verificare che sia visibile il commit appena fatto
