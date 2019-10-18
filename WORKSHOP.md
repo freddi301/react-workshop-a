@@ -56,3 +56,48 @@ Eventualmente aggiungere il comando al PATH
     - committare (pulsante `✓`)
 - in gitkraken
   - verificare che sia visibile il commit appena fatto
+
+# FAQ
+
+# TODO
+
+- [ ] context (user session)
+- [ ] portal (modale)
+- [ ] render prop (lista eterogena)
+- [ ] memo (lista)
+- [ ] useState (contatore like)
+- [ ] useEffect (fetch)
+- [ ] useReducer (fetch custom hook)
+- [ ] useCallback (on click)
+- [ ] useMemo (derived prop)
+- [ ] useRef (dom manipulation)
+- [ ] useDebugValue
+- [ ] https://it.reactjs.org/docs/hooks-rules.html
+- [ ] https://it.reactjs.org/docs/hooks-intro.html
+- [ ] styled-component
+- [ ] styled-component vscode plugin
+- [ ] styled-component theme (text color, background color)
+- [ ] react dev tools, (filter, rednered by), profiler (why rerender)
+- [ ] vscode chrome debugger
+- [ ] prettier in vscode, format on save, fformat script
+- [ ] git flow
+- [ ] custom hooks, useDebounce (ricerca), useThrottle (clicks)
+- [ ] spiegazione cra
+- [ ] js next, destructuring, spread, const
+- [ ] useLocalStorage (dark - white theme)
+- [ ] useMediaQuery
+- [ ] useMemoizedCallbacks
+- [ ] useInterval
+- [ ] useExpiration
+- [ ] useDebugPropChanges
+- [ ] process.env
+- [ ] useUndoState
+- [ ] useUndoReducer
+- [ ] fetch cancel signal
+- [ ] react spring useSpring (accordion, svg)
+- [ ] useScript
+- [ ] useKeyPress
+- [ ] useOnScreen (insfinites scroll)
+- [ ] usePrevious
+- [ ] useHover
+- [ ] 
