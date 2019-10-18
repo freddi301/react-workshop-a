@@ -213,6 +213,31 @@ formattare l'intero progetto, verificare, commit
   - è anche possibile vedere perchè un componente si aggiornato
   - è consigliabile tenere il tempo di rendering sotto i 17ms, sia dei singoli elementi che dell'intera app
 
+## Debug in vscode
+
+E possibile usare il debugger direttamente in vscode, velocizzando cosi molto il debug
+
+- istallare l'estensione `chrome debugger`
+- andare nella sezione `debug 🐛` del panneello di sinistra
+- in alto clicare su `add configuration` -> `add configuration` -> `Chrome`
+- modificare la configurazione come segue
+  ```json
+  {
+    "type": "chrome",
+    "request": "launch",
+    "name": "Launch Chrome against localhost",
+    "url": "http://localhost:3000",
+    "webRoot": "${workspaceFolder}",
+    "runtimeExecutable": "/usr/bin/chromium" // on linux, adjust for your system
+  }
+  ```
+- chiudere tutte le finestre di chrome aperte (altrimenti non funzionerà)
+- cliccare sul pulsante `debug ▷`
+- verificare la funzionalità
+  - mettere un punto di debug all'interno del componente `LikeCounter`
+    - si fa cliccando alla sinistra del numero della riga quando compare un `⏺` rosso
+  - sperimetnare
+  - è molto consigliato usare il debugger invece dei `console.log`
 
 # FAQ
 
