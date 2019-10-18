@@ -57,6 +57,26 @@ Eventualmente aggiungere il comando al PATH
 - in gitkraken
   - verificare che sia visibile il commit appena fatto
 
+## Struttura direcotry
+
+- package.json
+  - è il manifest del package manager
+  - è presente l'elenco delle dipendenze del progetto
+  - va committato quando modificato
+  - contiene gli script per le fasi di build del progetto
+- tsconfig.json
+  - contiene la configurazione di typescript
+- yarn.lock
+  - è un file utilizzato da yarn per ricordare le sottodipendenze dei pacchetti
+  - va committato se modificato
+- .gitignore
+  - contiene la lista dei file e cartelle da ignorare durante i commit
+- public
+  - contiene alcuni asset statici per generare la pagina html finale
+  - contiene altri file necessari perchè l'app sia una [PWA](https://developers.google.com/web/progressive-web-apps)
+- src
+  - contiene i file sorgenti
+
 # FAQ
 
 # TODO
@@ -100,4 +120,4 @@ Eventualmente aggiungere il comando al PATH
 - [ ] useOnScreen (insfinites scroll)
 - [ ] usePrevious
 - [ ] useHover
-- [ ] 
+- [ ] absolute import
