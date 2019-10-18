@@ -25,6 +25,13 @@
 - [gitkraken](https://www.gitkraken.com/)
 - react dev tools [chrome](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi) [firefox](https://addons.mozilla.org/it/firefox/addon/react-devtools/)
 
+## Nozioni
+
+- [destructuring](https://developer.mozilla.org/it/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment)
+- [arrow function](https://developer.mozilla.org/it/docs/Web/JavaScript/Reference/Functions_and_function_scope/Arrow_functions)
+- [react hoooks](https://it.reactjs.org/docs/hooks-intro.html)
+- [typescript import syntax](https://www.typescriptlang.org/docs/handbook/modules.html)
+
 # Progetto
 
 ## Istallare yarn
@@ -114,6 +121,7 @@ andremo a realizzare bottone `like` con conteggio di click
       - mentre si digita il nome, si può gia apprezzare l'autocomplete
       - premendo invio dovrebbe aggiungersi l'import in automatico
         - nel caso contrario controllare nelle impostazioni (`ctrl+,` su linux) la voce `auto imports typescript` sia abilitata
+        - posizionare il cursore alla fine del nome del componennte `<LikeComponent`**|**`/>` e premere `ctrl+space` poi `invio`
   - salvare le modifiche in tutti i file con il pulsante `save all` 💾 in alto a sinistra nel menu esplora
 - nel browser
   - verificare le modifiche
@@ -239,11 +247,41 @@ E possibile usare il debugger direttamente in vscode, velocizzando cosi molto il
   - sperimetnare
   - è molto consigliato usare il debugger invece dei `console.log`
 
+## Title Changer
+
+- creiamo il file `src/TitleChanger`
+  ```typescript
+  import React, { useState, useEffect } from "react";
+
+  export function TitleChanger() {
+    const [title, setTitle] = useState("React Workshop");
+    // useEffect è una hook che ci permette di eseguire un comando imperativo al cambiamento di alcuni valori
+    // primo parametro: funzione eseguita ogni volta che i valori cambiano
+    // secondo parametro: lista dei valori usati all'interno dell'effect
+    useEffect(() => {
+      document.title = title;
+    }, [title]);
+    return (
+      <div>
+        page title:{" "}
+        <input
+          value={title} // bisogna specificare quale sia il valore contenuto nell'input
+          onChange={event => {
+            // aggiorniamo lo stato prendendo il valore del campo di input dall'evento
+            setTitle(event.target.value);
+          }}
+        />
+      </div>
+    );
+  }
+  ```
+- ed inseriamo il componente in `src/App.tsx`
+- sperimentare il funzionamento, salva, commit
+
 # FAQ
 
 # TODO
 
-- [ ] vscode chrome debugger
 - [ ] styled-component
 - [ ] styled-component vscode plugin
 - [ ] styled-component theme (text color, background color)
@@ -253,13 +291,11 @@ E possibile usare il debugger direttamente in vscode, velocizzando cosi molto il
 - [ ] context (user session)
 - [ ] portal (modale)
 - [ ] render prop (lista eterogena)
-- [ ] useEffect (fetch)
 - [ ] useReducer (fetch custom hook)
 - [ ] useCallback (on click)
 - [ ] useMemo (derived prop)
 - [ ] useRef (dom manipulation)
-- [ ] https://it.reactjs.org/docs/hooks-rules.html
-- [ ] https://it.reactjs.org/docs/hooks-intro.html
+- [ ] (fetch)
 - [ ] git flow
 - [ ] fetch cancel signal
 - [ ] process.env

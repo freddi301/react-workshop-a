@@ -2,6 +2,7 @@ import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import { LikeCounter } from "./LikeCounter";
+import { TitleChanger } from "./TitleChanger";
 
 const App: React.FC = () => {
   return (
@@ -10,6 +11,7 @@ const App: React.FC = () => {
         <img src={logo} className="App-logo" alt="logo" />
         Workshop (react + hooks + typescript)
         <LikeCounter />
+        <TitleChanger />
       </header>
     </div>
   );
