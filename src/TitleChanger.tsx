@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 
+/**
+ * Componente che permette di cambiare il titolo della tab
+ */
 export function TitleChanger() {
   const [title, setTitle] = useState("React Workshop");
   // useEffect è una hook che ci permette di eseguire un comando imperativo al cambiamento di alcuni valori

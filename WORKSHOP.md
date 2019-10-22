@@ -32,6 +32,9 @@
 - [react hoooks](https://it.reactjs.org/docs/hooks-intro.html)
 - [typescript import syntax](https://www.typescriptlang.org/docs/handbook/modules.html)
 - [template literlas](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)
+- [object propertyva lue shorthand](https://alligator.io/js/object-property-shorthand-es6/)
+- [computed property names](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer#Computed_property_names)
+- [new javascript features](https://medium.com/@madasamy/javascript-brief-history-and-ecmascript-es6-es7-es8-features-673973394df4)
 
 # Progetto
 
@@ -317,7 +320,7 @@ creare il file `src/Arcobaleno.tsx`
 
 ```typescript
 import React from "react";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 
 export function Arcobaleno() {
   return (
@@ -384,6 +387,155 @@ const StyledBlue = styled(StyledTile)`
 `;
 ```
 
+## Tema styled-components
+
+Stabilire un tema per l'applicazione è molto ricorrente ed è utile sopratutto in 2 casi:
+
+- colori/bordi/spaziatura utilizzati in modo omogeneo tra i componenti grafici
+- applicazioni con piu temi
+
+inoltre ci permette di avere un unico punto centralizzato per modificare valori globali
+
+- Aggiungiamo il file `src/theme/theme.d.ts`
+  ```typescript
+  import { CSSProp } from "styled-components";
+
+  /*
+    Questa definizione di tipo ci permette avere il tema tipizzato.
+    Qui stiamo dicendo a typescript che stiamo aggiungendo degli attrbibuti
+    all'interface DefaultTheme del modulo "styled-components"
+  */
+  declare module "styled-components" {
+    export interface DefaultTheme {
+      backgroundColor: string;
+      textColor: string;
+    }
+  }
+
+  /*
+    Questa definizione di tipo ci permette di utilizzare
+    <div css={css`backgrouns-color: black;`}>
+    Per il css inline (qualora fosse troppo oneroso definire componenti styled)
+  */
+  declare module "react" {
+    interface Attributes {
+      css?: CSSProp;
+    }
+  }
+  ```
+- Aggiumgiamo il file `src/mytheme.ts`
+  ```typescript
+  import { useState } from "react";
+  import { DefaultTheme } from "styled-components/macro"; // questa interface ce la siamo definiti noi
+
+  // sfruttiamo la definizione che abbiamo creato
+  export const light: DefaultTheme = {
+    backgroundColor: "white",
+    textColor: "black"
+  };
+
+  export const dark: DefaultTheme = {
+    backgroundColor: "black",
+    textColor: "white"
+  };
+
+  // questo ci servira come lista dei temi disponibili
+  export const themes = {
+    light, // questa riga è equivalente a light: light,
+    dark
+  };
+
+  /*
+    con `typeof` è possibile ottenere il tipo di un valore
+    con `keyof` è possibile ottenere i nomi degli attributi di un tipo di oggetto
+  */
+  export type ThemeName = keyof typeof themes;
+
+  /*
+    Questa è una custom hook,
+    una custom hook non è altro che una funzione che utilizza altre hook al proprio interno
+  */
+  /**
+   * App theme hook, to be used with
+   * @example
+   *  function App(){
+   *    const [theme] = useMyTheme()
+   *    return <ThemeProvider theme={theme}>
+   *      <h1>Hello</h1>
+   *    </ThemeProvider>
+   *  }
+   */
+  export function useMyTheme() {
+    const [themeName, setThemeName] = useState<ThemeName>("light");
+    const theme = themes[themeName];
+    return [theme, setThemeName] as const; // as const è necessario per far riconoscere a typescript che si tratta di un array con una lulnghezza fissa ed elemnti di tipo diverso
+  }
+  ```
+- Aggiungiamo il file `src/theme/ThemeSwitcher.tsx`
+  ```typescript
+  import React from "react";
+  import { ThemeName, themes } from "./mytheme";
+
+  type ThemeSwitcherProps = {
+    onChange(themeName: ThemeName): void;
+  };
+
+  /**
+   * Un componente che ci fa selezionare il nome del tema
+   */
+  export function ThemeSwitcher({ onChange }: ThemeSwitcherProps) {
+    return (
+      <>
+        theme:&nbsp;
+        <select onChange={event => onChange(event.target.value as ThemeName)}>
+          {Object.keys(themes).map(themeName => (
+            <option key={themeName} value={themeName}>
+              {themeName}
+            </option>
+          ))}
+        </select>
+      </>
+    );
+  }
+  ```
+- nel file `src/App.tsx` aggiungiamo
+```typescript
+import { useMyTheme } from "./theme/mytheme";
+import styled, { ThemeProvider, css } from "styled-components/macro";
+import { ThemeSwitcher } from "./theme/ThemeSwitcher";
+
+const App = () => {
+  const [theme, setThemeName] = useMyTheme(); // utilizziamo la custom hook del nostro tema
+  return (
+    <ThemeProvider
+      theme={theme}
+      // forniamo agli styled component il contesto del tema
+    >
+      <StyledContainer>
+        <ThemeSwitcher onChange={setThemeName} />
+        Lorem ipsum
+      </StyledContainer>
+    </ThemeProvider>
+  )
+}
+
+// il tema è accessibile tramite la prop theme
+const StyledContainer = styled.div`
+  background-color: ${({ theme: { backgroundColor } }) => backgroundColor};
+  color: ${({ theme: { textColor } }) => textColor};
+`;
+```
+
+## Intellisense & [JSDoc](https://devdocs.io/jsdoc/)
+
+Questi due strumenti possono rendere un progetto di grandi dimensioni facilmente gestibile.
+
+Cercando sempre di annotatare correttamente i tipi ci permette di scoprire i conteneti e forme dei parametri e delle varaibili con un semplice hover del mouse. Ci avvisano in fase di scrittura di eventuali errori. Ci danno l'autocompletamneto in ogni parte del programma (`ctrl+spazio`). E ci permettono ache di fare refactor facile e sicuro.
+
+Scrivendo i commenti nel formato [JSDoc](https://devdocs.io/jsdoc/), all'hover del mouse possiamo avere la documentazione a portata di mano senza dover cambiare file.
+
+Si consiglia di sperimentare, e far entrare nella propria routine entrambi gli strumenti.
+
 # FAQ
 
 ## Nomenclatura hooks
@@ -397,11 +549,24 @@ I file typescript possono essere salvati con due estensioni
 - .ts per file che non contengono [JSX](https://it.reactjs.org/docs/introducing-jsx.html)
 - .tsx per i file che contengono [JSX]
 
-ci sono alcune differenze nella sinstassi per i due tipi di file 
+ci sono alcune differenze nella sinstassi per i due tipi di file
+
+## styled-components/macro
+
+utilizzando questo import sfruttiamo le [babel-macro](), per precompilare gli stili (miglioramento performance)
+
+## d.ts
+
+I file con estensione .d.ts sono file che possiamo utilizzare per arricchire la tipizzazione del progetto
+
+- possiamo definire il tipi di un file javascript tradizionale in modo da poterlo importare nei file typescript
+  - deve avere lo stesso nome del file javascript e trovarsi nella stessa cartella ed avere l'estensione .d.ts
+- possiamio definire i tipi contenuti in un modulo (dipendenza istallata con npm)
+  - il file si può trovare ovunque nella cartella sorgente
+  - la sintassi è `declare module "miomodulo" {}`
 
 # TODO
 
-- [ ] styled-component theme (text color, background color) + color switch
 - [ ] todo mvc
 - [ ] absolute import
 - [ ] memo (lista)

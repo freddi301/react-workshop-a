@@ -1,5 +1,10 @@
 import React, { useState } from "react";
 
+/**
+ * Contatore di like
+ * @example
+ *  <LikeCounter/>
+ */
 export function LikeCounter() {
   const [likes, setLikes] = useState(0);
   // likes è lo stato attuale

@@ -1,6 +1,9 @@
 import React from "react";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 
+/**
+ * Componente demo per styled component
+ */
 export function Arcobaleno() {
   return (
     <StyledBorder>
@@ -28,6 +31,7 @@ const StyledBorder = styled.div`
   );
   border-radius: 8px;
   padding: 4px;
+  display: inline-block;
 `;
 
 const StyledBody = styled.div`
