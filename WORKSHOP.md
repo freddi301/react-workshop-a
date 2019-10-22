@@ -481,11 +481,19 @@ inoltre ci permette di avere un unico punto centralizzato per modificare valori 
   };
 
   /**
-   * Un componente che ci fa selezionare il nome del tema
-   */
+  * Un componente che ci fa selezionare il nome del tema
+  */
   export function ThemeSwitcher({ onChange }: ThemeSwitcherProps) {
     return (
       <>
+        {/*
+          Questa è un syntax sugar per utilizzare <React.Fragment>
+          React.Fragment è come un div, solo che al suo posto non viene renderizzato nulla,
+          è utile quando si ha bisogno di ragruppare un insieme di elementi jsx senza aggiungere qualcosa al dom.
+          Nel caso in cui venga utilizzato con una lista, bisogna utilizzare la notazione per intero
+          <React.Fragment key={key}>...</React.Fragment>
+          poichè è necessario specificare la key per gli elementi di un array
+        */}
         theme:&nbsp;
         <select onChange={event => onChange(event.target.value as ThemeName)}>
           {Object.keys(themes).map(themeName => (
