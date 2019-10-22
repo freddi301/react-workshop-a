@@ -3,13 +3,15 @@ import { DefaultTheme } from "styled-components/macro"; // questa interface ce l
 
 // sfruttiamo la definizione che abbiamo creato
 export const light: DefaultTheme = {
-  backgroundColor: "white",
-  textColor: "black"
+  backgroundColor: "#FDF6E3",
+  textColor: "#657B83",
+  borderColor: "#EEE8D5"
 };
 
 export const dark: DefaultTheme = {
-  backgroundColor: "black",
-  textColor: "white"
+  backgroundColor: "#002B36",
+  textColor: "#839496",
+  borderColor: "#073642"
 };
 
 // questo ci servira come lista dei temi disponibili
@@ -39,7 +41,7 @@ export type ThemeName = keyof typeof themes;
  *  }
  */
 export function useMyTheme() {
-  const [themeName, setThemeName] = useState<ThemeName>("light");
+  const [themeName, setThemeName] = useState<ThemeName>("dark");
   const theme = themes[themeName];
-  return [theme, setThemeName] as const; // as const è necessario per far riconoscere a typescript che si tratta di un array con una lulnghezza fissa ed elemnti di tipo diverso
+  return [themeName, theme, setThemeName] as const; // as const è necessario per far riconoscere a typescript che si tratta di un array con una lulnghezza fissa ed elemnti di tipo diverso
 }

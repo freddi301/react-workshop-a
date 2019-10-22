@@ -425,50 +425,41 @@ inoltre ci permette di avere un unico punto centralizzato per modificare valori 
   ```
 - Aggiumgiamo il file `src/mytheme.ts`
   ```typescript
-  import { useState } from "react";
-  import { DefaultTheme } from "styled-components/macro"; // questa interface ce la siamo definiti noi
+  import React from "react";
+  import { ThemeName, themes } from "src/theme/mytheme";
 
-  // sfruttiamo la definizione che abbiamo creato
-  export const light: DefaultTheme = {
-    backgroundColor: "white",
-    textColor: "black"
+  type ThemeSwitcherProps = {
+    current: ThemeName;
+    onChange(themeName: ThemeName): void;
   };
 
-  export const dark: DefaultTheme = {
-    backgroundColor: "black",
-    textColor: "white"
-  };
-
-  // questo ci servira come lista dei temi disponibili
-  export const themes = {
-    light, // questa riga è equivalente a light: light,
-    dark
-  };
-
-  /*
-    con `typeof` è possibile ottenere il tipo di un valore
-    con `keyof` è possibile ottenere i nomi degli attributi di un tipo di oggetto
-  */
-  export type ThemeName = keyof typeof themes;
-
-  /*
-    Questa è una custom hook,
-    una custom hook non è altro che una funzione che utilizza altre hook al proprio interno
-  */
   /**
-   * App theme hook, to be used with
-   * @example
-   *  function App(){
-   *    const [theme] = useMyTheme()
-   *    return <ThemeProvider theme={theme}>
-   *      <h1>Hello</h1>
-   *    </ThemeProvider>
-   *  }
+   * Un componente che ci fa selezionare il nome del tema
    */
-  export function useMyTheme() {
-    const [themeName, setThemeName] = useState<ThemeName>("light");
-    const theme = themes[themeName];
-    return [theme, setThemeName] as const; // as const è necessario per far riconoscere a typescript che si tratta di un array con una lulnghezza fissa ed elemnti di tipo diverso
+  export function ThemeSwitcher({ current, onChange }: ThemeSwitcherProps) {
+    return (
+      <>
+        {/*
+          Questa è un syntax sugar per utilizzare <React.Fragment>
+          React.Fragment è come un div, solo che al suo posto non viene renderizzato nulla,
+          è utile quando si ha bisogno di ragruppare un insieme di elementi jsx senza aggiungere qualcosa al dom.
+          Nel caso in cui venga utilizzato con una lista, bisogna utilizzare la notazione per intero
+          <React.Fragment key={key}>...</React.Fragment>
+          poichè è necessario specificare la key per gli elementi di un array
+        */}
+        theme:&nbsp;
+        <select
+          value={current}
+          onChange={event => onChange(event.target.value as ThemeName)}
+        >
+          {Object.keys(themes).map(themeName => (
+            <option key={themeName} value={themeName}>
+              {themeName}
+            </option>
+          ))}
+        </select>
+      </>
+    );
   }
   ```
 - Aggiungiamo il file `src/theme/ThemeSwitcher.tsx`
@@ -513,14 +504,14 @@ import styled, { ThemeProvider, css } from "styled-components/macro";
 import { ThemeSwitcher } from "./theme/ThemeSwitcher";
 
 const App = () => {
-  const [theme, setThemeName] = useMyTheme(); // utilizziamo la custom hook del nostro tema
+  const [themeName, theme, setThemeName] = useMyTheme(); // utilizziamo la custom hook del nostro tema
   return (
     <ThemeProvider
       theme={theme}
       // forniamo agli styled component il contesto del tema
     >
       <StyledContainer>
-        <ThemeSwitcher onChange={setThemeName} />
+        <ThemeSwitcher current={themeName} onChange={setThemeName} />
         Lorem ipsum
       </StyledContainer>
     </ThemeProvider>
@@ -557,6 +548,19 @@ Si consiglia di sperimentare, e far entrare nella propria routine entrambi gli s
   - `"typescript.tsdk": "./node_modules/typescript/lib",` questo dice a vscode di utilizzare la versione di typescript usata dal progetto (vscode ha una propria versione di typescript istallata), cosi da prevenire incongruenze
   - `"search.exclude": { "**/.git": true, "**/node_modules": true }` se nella cartella del progetto sono presenti cartelle che volete escludere dalla ricerca globale (`ctrl+shift+f`)
 
+## More Shortcuts
+
+[tips and tricks](https://code.visualstudio.com/docs/getstarted/tips-and-tricks)
+
+- `ctrl+p` ![quick open](https://code.visualstudio.com/assets/docs/getstarted/tips-and-tricks/QuickOpen.gif)
+- `ctrl+tab` ![navigation history](https://code.visualstudio.com/assets/docs/getstarted/tips-and-tricks/navigate_history.gif)
+- `shift-alt-↑` ![multiple selection](https://code.visualstudio.com/assets/docs/getstarted/tips-and-tricks/multicursor.gif)
+- `ctrl+d` ![select occurrences](https://code.visualstudio.com/assets/docs/getstarted/tips-and-tricks/add_cursor_current_selection_one_by_one.gif)
+- `alt+↑` `alt+↓` ![move line](https://code.visualstudio.com/assets/docs/getstarted/tips-and-tricks/move_line.gif)
+- `shift+alt+←` `shift+alt+→` ![srhink expand selection](https://code.visualstudio.com/assets/docs/getstarted/tips-and-tricks/shrink_expand_selection.gif)
+- `@:` ![got to symbol grpuped](https://code.visualstudio.com/assets/docs/getstarted/tips-and-tricks/group_symbols_by_kind.png)
+- `ctrl+p` `:134` vai alla linea
+- `ctrl+l` seleziona linea (premuto più volte continua)
 
 # FAQ
 
@@ -575,7 +579,7 @@ ci sono alcune differenze nella sinstassi per i due tipi di file
 
 ## styled-components/macro
 
-utilizzando questo import sfruttiamo le [babel-macro](), per precompilare gli stili (miglioramento performance)
+utilizzando questo import sfruttiamo le [babel-macro](https://babeljs.io/blog/2017/09/11/zero-config-with-babel-macros), per precompilare gli stili (miglioramento performance)
 
 ## d.ts
 

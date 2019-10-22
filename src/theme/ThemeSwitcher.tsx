@@ -2,13 +2,14 @@ import React from "react";
 import { ThemeName, themes } from "src/theme/mytheme";
 
 type ThemeSwitcherProps = {
+  current: ThemeName;
   onChange(themeName: ThemeName): void;
 };
 
 /**
  * Un componente che ci fa selezionare il nome del tema
  */
-export function ThemeSwitcher({ onChange }: ThemeSwitcherProps) {
+export function ThemeSwitcher({ current, onChange }: ThemeSwitcherProps) {
   return (
     <>
       {/*
@@ -20,7 +21,10 @@ export function ThemeSwitcher({ onChange }: ThemeSwitcherProps) {
         poichè è necessario specificare la key per gli elementi di un array
       */}
       theme:&nbsp;
-      <select onChange={event => onChange(event.target.value as ThemeName)}>
+      <select
+        value={current}
+        onChange={event => onChange(event.target.value as ThemeName)}
+      >
         {Object.keys(themes).map(themeName => (
           <option key={themeName} value={themeName}>
             {themeName}
