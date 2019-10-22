@@ -1,11 +1,11 @@
 import React from "react";
-import logo from "./logo.svg";
-import { LikeCounter } from "./LikeCounter";
-import { TitleChanger } from "./TitleChanger";
-import { Arcobaleno } from "./Arcobaleno";
-import { useMyTheme } from "./theme/mytheme";
+import logo from "src/logo.svg";
 import styled, { ThemeProvider, css } from "styled-components/macro";
-import { ThemeSwitcher } from "./theme/ThemeSwitcher";
+import { useMyTheme } from "src/theme/mytheme";
+import { ThemeSwitcher } from "src/theme/ThemeSwitcher";
+import { Arcobaleno } from "src/Arcobaleno";
+import { TitleChanger } from "src/TitleChanger";
+import { LikeCounter } from "src/LikeCounter";
 
 /**
  * App root component

@@ -1,5 +1,5 @@
 import React from "react";
-import { ThemeName, themes } from "./mytheme";
+import { ThemeName, themes } from "src/theme/mytheme";
 
 type ThemeSwitcherProps = {
   onChange(themeName: ThemeName): void;

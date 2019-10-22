@@ -544,6 +544,20 @@ Scrivendo i commenti nel formato [JSDoc](https://devdocs.io/jsdoc/), all'hover d
 
 Si consiglia di sperimentare, e far entrare nella propria routine entrambi gli strumenti.
 
+## Impostazioni utili
+
+- Quando il progetto diventa grande, file e cartelle si moltiplicano, è utili sia per fini di refactor che leggibilita utilizzare gli import assoluti.
+  - nel file `.vscode/setting.json` agggiungere `"typescript.preferences.importModuleSpecifier": "non-relative"`, questo imposterà gli import automatici sulla modalita assoluta
+  - nel file `tsconfig.json` aggiungere `"baseUrl": "."`, questo indicherà da che punto partiranno i nostri perorsi di import
+    - impostandolo a `"."` i nostri import avranno forma `src/miacartella/miofile`, questo è ideale perchè `src` non collide con i nomi di altri moduli installati tramite npm
+- nel file `tsconfig.json` aggiungere `"noImplicitAny": true,` questo indicherà a typescript di avvisarci quando innavertitamente ci dimentichiamo di annotare i tipi
+- nel file `.vscode/settings.json` aggiunger
+  - `"editor.formatOnSave": true,`
+  - `"editor.tabSize": 2,` indentare con due spazi è la convenzione in ambito js
+  - `"typescript.tsdk": "./node_modules/typescript/lib",` questo dice a vscode di utilizzare la versione di typescript usata dal progetto (vscode ha una propria versione di typescript istallata), cosi da prevenire incongruenze
+  - `"search.exclude": { "**/.git": true, "**/node_modules": true }` se nella cartella del progetto sono presenti cartelle che volete escludere dalla ricerca globale (`ctrl+shift+f`)
+
+
 # FAQ
 
 ## Nomenclatura hooks
@@ -575,12 +589,11 @@ I file con estensione .d.ts sono file che possiamo utilizzare per arricchire la 
 
 # TODO
 
-- [ ] todo mvc
-- [ ] absolute import
-- [ ] memo (lista)
-- [ ] react fragment
-- [ ] context (user session)
+- [ ] todo list
 - [ ] portal (modale)
+- [ ] useDebounce (ricerca)
+- [ ] memo (lista)
+- [ ] context (user session)
 - [ ] render prop (lista eterogena)
 - [ ] useReducer (fetch custom hook)
 - [ ] useCallback (on click)
@@ -591,12 +604,9 @@ I file con estensione .d.ts sono file che possiamo utilizzare per arricchire la 
 - [ ] fetch cancel signal
 - [ ] process.env
 - [ ] spiegazione cra
-- [ ] js next, destructuring, spread, const
-- [ ] custom hooks
 - [ ] useDebugValue
 - [ ] useDebugPropChanges
 - [ ] useLocalStorage (dark - white theme)
-- [ ] useDebounce (ricerca)
 - [ ] useThrottle (clicks)
 - [ ] useMediaQuery
 - [ ] useMemoizedCallbacks
