@@ -19,6 +19,7 @@ export function Arcobaleno() {
 // gli styled component dovrebbero avere il prefisso Styled
 
 const StyledBorder = styled.div`
+  /* https://cssgradient.io/ */
   background: linear-gradient(
     45deg,
     rgba(255, 0, 0, 1) 0%,

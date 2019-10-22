@@ -6,6 +6,7 @@ import { ThemeSwitcher } from "src/theme/ThemeSwitcher";
 import { Arcobaleno } from "src/Arcobaleno";
 import { TitleChanger } from "src/TitleChanger";
 import { LikeCounter } from "src/LikeCounter";
+import { TodoListA } from "src/todolist/TodoListA";
 
 /**
  * App root component
@@ -46,6 +47,10 @@ const App = () => {
           <StyledSectionHeader>Theme Switcher</StyledSectionHeader>
           <ThemeSwitcher current={themeName} onChange={setThemeName} />
         </StyledSection>
+        <StyledSection>
+          <StyledSectionHeader>Todo List A</StyledSectionHeader>
+          <TodoListA />
+        </StyledSection>
       </StyledContainer>
     </ThemeProvider>
   );
@@ -72,7 +77,7 @@ const StyledHeader = styled.h1`
   margin: -1em -1em 0 -1em;
   border-radius: 8px 8px 0px 0px;
   padding: 1em;
-  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.65);
+  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.65); /* https://www.cssmatic.com/box-shadow */
 `;
 
 const StyledSection = styled.div`

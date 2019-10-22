@@ -8,6 +8,7 @@ export const light: DefaultTheme = {
   borderColor: "#EEE8D5"
 };
 
+// https://ethanschoonover.com/solarized/
 export const dark: DefaultTheme = {
   backgroundColor: "#002B36",
   textColor: "#839496",
