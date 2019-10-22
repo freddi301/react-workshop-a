@@ -7,6 +7,8 @@ import { Arcobaleno } from "src/Arcobaleno";
 import { TitleChanger } from "src/TitleChanger";
 import { LikeCounter } from "src/LikeCounter";
 import { TodoListA } from "src/todolist/TodoListA";
+import meme from "src/distracted-boyfriend.jpg";
+import { TodoListB } from "src/todolist/TodoListB";
 
 /**
  * App root component
@@ -29,28 +31,37 @@ const App = () => {
               margin-right: 0.5em;
             `}
           />
-          Workshop (react + hooks + typescript)
+          Workshop (React + Hooks + TypeScript)
         </StyledHeader>
-        <StyledSection>
-          <StyledSectionHeader>Counter</StyledSectionHeader>
-          <LikeCounter />
-        </StyledSection>
-        <StyledSection>
-          <StyledSectionHeader>Title Changer</StyledSectionHeader>
-          <TitleChanger />
-        </StyledSection>
-        <StyledSection>
-          <StyledSectionHeader>styled-components</StyledSectionHeader>
-          <Arcobaleno />
-        </StyledSection>
-        <StyledSection>
-          <StyledSectionHeader>Theme Switcher</StyledSectionHeader>
-          <ThemeSwitcher current={themeName} onChange={setThemeName} />
-        </StyledSection>
-        <StyledSection>
-          <StyledSectionHeader>Todo List A</StyledSectionHeader>
-          <TodoListA />
-        </StyledSection>
+        <div>
+          <StyledImageEmbed src={meme} />
+          <StyledSection>
+            <StyledSectionHeader>Counter</StyledSectionHeader>
+            <LikeCounter />
+          </StyledSection>
+          <StyledSection>
+            <StyledSectionHeader>Title Changer</StyledSectionHeader>
+            <TitleChanger />
+          </StyledSection>
+          <StyledSection>
+            <StyledSectionHeader>styled-components</StyledSectionHeader>
+            <Arcobaleno />
+          </StyledSection>
+          <StyledSection>
+            <StyledSectionHeader>Theme Switcher</StyledSectionHeader>
+            <ThemeSwitcher current={themeName} onChange={setThemeName} />
+          </StyledSection>
+          <StyledSection>
+            <StyledSectionHeader>Todo List A</StyledSectionHeader>
+            <TodoListA />
+          </StyledSection>
+          <StyledSection>
+            <StyledSectionHeader>Todo List B</StyledSectionHeader>
+            <TodoListB />
+          </StyledSection>
+          <StyledImageEmbed src="https://imgs.xkcd.com/comics/real_programmers.png" />
+          <StyledFooter>{copyLeft} Frederik Batuna - October 2019</StyledFooter>
+        </div>
       </StyledContainer>
     </ThemeProvider>
   );
@@ -87,3 +98,52 @@ const StyledSection = styled.div`
 const StyledSectionHeader = styled.h2`
   border-bottom: 1px solid ${({ theme: { borderColor } }) => borderColor};
 `;
+
+const StyledImageEmbed = styled.img`
+  border-radius: 8px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  max-width: 100%;
+  margin-top: 1em;
+  margin-bottom: 1em;
+`;
+
+const StyledFooter = styled.div`
+  border-top: 1px solid ${({ theme: { borderColor } }) => borderColor};
+  text-align: center;
+  margin-left: -2em;
+  margin-right: -2em;
+  padding: 1em;
+`;
+
+// si possono utilizzare anche direttamente le istanze dei componenti
+// https://it.wikipedia.org/wiki/Copyleft
+const copyLeft = (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 980 980"
+    css={css`
+      width: 1em;
+      vertical-align: middle;
+    `}
+  >
+    <circle
+      cx="490"
+      cy="490"
+      r="440"
+      fill="none"
+      css={css`
+        stroke: ${({ theme: { textColor } }) => textColor};
+        stroke-width: 100;
+      `}
+    />
+    <path
+      d="M219,428H350a150,150 0 1 1 0,125H219a275,275 0 1 0 0-125z"
+      css={css`
+        fill: ${({ theme: { textColor } }) => textColor};
+        stroke: ${({ theme: { textColor } }) => textColor};
+      `}
+    />
+  </svg>
+);

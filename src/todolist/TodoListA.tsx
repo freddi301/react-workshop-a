@@ -32,7 +32,12 @@ export function TodoListA() {
           // è necessaria sia per le performance che per per il corretto funzionamente dei collback
           // osservare la console del browser, react lancia degli avvisi a proposito in modalita sviluppo
           <div key={id}>
-            <input type="checkbox" name={id} checked={isDone} />
+            <input
+              type="checkbox"
+              name={id}
+              checked={isDone}
+              onChange={() => {}}
+            />
             {text}
           </div>
         );
