@@ -5,14 +5,14 @@
 ## Software da istallare
 
 - [vscode](https://code.visualstudio.com/)
-  - estensioni 
+  - estensioni
     - bookmarks
     - debugger for chrome
     - debugger for firefox
     - error lens
     - git lens
     - live share + live share audio (fare login)
-    - markdon all in one
+    - markdown all in one
     - one dark pro
     - paste json as code
     - rainbow brackets
@@ -49,7 +49,6 @@ Lanciare `npm install -g yarn`
 Controllare l'istallazione se è andatao a buon fine con `yarn --version`
 
 Chiudere e riaprire la linea di comando eventualmente
-
 Eventualmente aggiungere il comando al PATH
 
 ## Setup con create-react-app
@@ -112,15 +111,18 @@ Eventualmente aggiungere il comando al PATH
 andremo a realizzare bottone `like` con conteggio di click
 
 - in vscode
+
   - creaiamo un nuovo file `src/LikeCounter.tsx`
   - con il contenuto
-      ```typescript
-      import React from "react"
 
-      export function LikeCounter(){
-        return <button>👍</button>
-      }
-      ```
+    ```typescript
+    import React from "react";
+
+    export function LikeCounter() {
+      return <button>👍</button>;
+    }
+    ```
+
   - nel file `src/App`
     - premendo `ctrl+p` (linux) si apre la ricerca veloce dei file (aiuta molto quando il numero di file è molto grande, per questo è consigliato chiamare i file con nomi univoci all'interno del progetto e dargli lo stesso nome del componente che esporta)
     - aggiungere `<LikeCounter/>`
@@ -129,18 +131,22 @@ andremo a realizzare bottone `like` con conteggio di click
         - nel caso contrario controllare nelle impostazioni (`ctrl+,` su linux) la voce `auto imports typescript` sia abilitata
         - posizionare il cursore alla fine del nome del componennte `<LikeComponent`**|**`/>` e premere `ctrl+space` poi `invio`
   - salvare le modifiche in tutti i file con il pulsante `save all` 💾 in alto a sinistra nel menu esplora
+
 - nel browser
   - verificare le modifiche
 - in vscode, file `src/LikeCounter`
-  - aggiungamo una riga, ci servira per portare il conto dei click
-    ```typescript
-    import React, { useState } from "react"
 
-    export function LikeCounter(){
-      const [likes, setLikes] = useState(0)
-      return <button>{likes} 👍</button>
+  - aggiungamo una riga, ci servira per portare il conto dei click
+
+    ```typescript
+    import React, { useState } from "react";
+
+    export function LikeCounter() {
+      const [likes, setLikes] = useState(0);
+      return <button>{likes} 👍</button>;
     }
     ```
+
   - useState è una react hook, serve per mantenere lo stato
   - come unico parametro gli passiamo lo stato iniziale
   - ritorna un array di due elementi
@@ -148,21 +154,26 @@ andremo a realizzare bottone `like` con conteggio di click
     - 2 la funzione che useremo per modificare lo stato
   - si notera che al click non succede nulla
   - aggiungiamo un azione sul click
-    ```typescript
-    import React, { useState } from "react"
 
-    export function LikeCounter(){
-      const [likes, setLikes] = useState(0)
-      return <button onClick={() => setLikes(likes + 1)}>{likes} 👍</button>
+    ```typescript
+    import React, { useState } from "react";
+
+    export function LikeCounter() {
+      const [likes, setLikes] = useState(0);
+      return <button onClick={() => setLikes(likes + 1)}>{likes} 👍</button>;
     }
     ```
+
   - salva, verifica, commit
+
+- ESERCITAZIONE: creare un componente con due counter che a fianco visualizza la loro somma
 
 ## Formattazione automatica
 
 Per velocizzare la scrittura, e mantenere il codice indentato in maniera omogenea anche avendo più collaboratori si puo usare lo strumento `prettier`
 
 - in vscode
+
   - istallare l'estensione `prettier`
   - nelle impostazioni (`ctrl+,` su linux)
     - nella sezione `workspace`
@@ -256,6 +267,7 @@ E possibile usare il debugger direttamente in vscode, velocizzando cosi molto il
 ## Title Changer
 
 - creiamo il file `src/TitleChanger`
+
   ```typescript
   import React, { useState, useEffect } from "react";
 
@@ -281,6 +293,7 @@ E possibile usare il debugger direttamente in vscode, velocizzando cosi molto il
     );
   }
   ```
+
 - ed inseriamo il componente in `src/App.tsx`
 - sperimentare il funzionamento, salva, commit
 
@@ -364,7 +377,8 @@ const StyledBody = styled.div`
 const StyledTile = styled.div<{ size: number }>`
   color: white;
   text-shadow: 0px 0px 4px black;
-  font-size: ${({ size }) => size}px; /* si può accedere ai parametri aggiuntivi */
+  font-size: ${({ size }) =>
+    size}px; /* si può accedere ai parametri aggiuntivi */
   padding: 0.5em;
   opacity: 0.8;
   &:hover {
@@ -399,6 +413,7 @@ Stabilire un tema per l'applicazione è molto ricorrente ed è utile sopratutto 
 inoltre ci permette di avere un unico punto centralizzato per modificare valori globali
 
 - Aggiungiamo il file `src/theme/theme.d.ts`
+
   ```typescript
   import { CSSProp } from "styled-components";
 
@@ -425,7 +440,9 @@ inoltre ci permette di avere un unico punto centralizzato per modificare valori 
     }
   }
   ```
+
 - Aggiumgiamo il file `src/mytheme.ts`
+
   ```typescript
   import React from "react";
   import { ThemeName, themes } from "src/theme/mytheme";
@@ -464,7 +481,9 @@ inoltre ci permette di avere un unico punto centralizzato per modificare valori 
     );
   }
   ```
+
 - Aggiungiamo il file `src/theme/ThemeSwitcher.tsx`
+
   ```typescript
   import React from "react";
   import { ThemeName, themes } from "./mytheme";
@@ -474,8 +493,8 @@ inoltre ci permette di avere un unico punto centralizzato per modificare valori 
   };
 
   /**
-  * Un componente che ci fa selezionare il nome del tema
-  */
+   * Un componente che ci fa selezionare il nome del tema
+   */
   export function ThemeSwitcher({ onChange }: ThemeSwitcherProps) {
     return (
       <>
@@ -499,7 +518,9 @@ inoltre ci permette di avere un unico punto centralizzato per modificare valori 
     );
   }
   ```
+
 - nel file `src/App.tsx` aggiungiamo
+
 ```typescript
 import { useMyTheme } from "./theme/mytheme";
 import styled, { ThemeProvider, css } from "styled-components/macro";
@@ -517,8 +538,8 @@ const App = () => {
         Lorem ipsum
       </StyledContainer>
     </ThemeProvider>
-  )
-}
+  );
+};
 
 // il tema è accessibile tramite la prop theme
 const StyledContainer = styled.div`
@@ -549,6 +570,7 @@ Si consiglia di sperimentare, e far entrare nella propria routine entrambi gli s
   - `"editor.tabSize": 2,` indentare con due spazi è la convenzione in ambito js
   - `"typescript.tsdk": "./node_modules/typescript/lib",` questo dice a vscode di utilizzare la versione di typescript usata dal progetto (vscode ha una propria versione di typescript istallata), cosi da prevenire incongruenze
   - `"search.exclude": { "**/.git": true, "**/node_modules": true }` se nella cartella del progetto sono presenti cartelle che volete escludere dalla ricerca globale (`ctrl+shift+f`)
+- aprendo le impostazioni (`ctrl+,`) e cercando `breadcrumb` spuntare la prima voce, si abilita il breadcrumb di navigazione (in alto per ogni file) molto utile per navigare all'interno dei file
 
 ## More Shortcuts
 
@@ -776,6 +798,8 @@ I file con estensione .d.ts sono file che possiamo utilizzare per arricchire la 
   - il file si può trovare ovunque nella cartella sorgente
   - la sintassi è `declare module "miomodulo" {}`
 
+# Troubleshooting
+
 # TODO
 
 - [ ] todo list
@@ -789,6 +813,8 @@ I file con estensione .d.ts sono file che possiamo utilizzare per arricchire la 
 - [ ] useMemo (derived prop)
 - [ ] useRef (dom manipulation)
 - [ ] (fetch)
+- [ ] hmr
+- [ ] hidden attribute
 - [ ] git flow
 - [ ] fetch cancel signal
 - [ ] process.env

@@ -12,3 +12,25 @@ export function LikeCounter() {
   // 0 è lo stato iniziale
   return <button onClick={() => setLikes(likes + 1)}>{likes} 👍</button>;
 }
+
+// ESERCITAZIONE
+export function Calcolatrice() {
+  const [numeroUno, setNumeroUno] = useState(0);
+  const [numeroDue, setNumeroDue] = useState(0);
+  const somma = numeroUno + numeroDue;
+  return (
+    <div>
+      <input
+        type="number"
+        value={numeroUno}
+        onChange={event => setNumeroUno(Number(event.target.value))}
+      />
+      <input
+        type="number"
+        value={numeroDue}
+        onChange={event => setNumeroDue(Number(event.target.value))}
+      />
+      <output>{somma}</output>
+    </div>
+  );
+}

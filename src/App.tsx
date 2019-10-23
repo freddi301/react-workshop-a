@@ -5,7 +5,7 @@ import { useMyTheme } from "src/theme/mytheme";
 import { ThemeSwitcher } from "src/theme/ThemeSwitcher";
 import { Arcobaleno } from "src/Arcobaleno";
 import { TitleChanger } from "src/TitleChanger";
-import { LikeCounter } from "src/LikeCounter";
+import { LikeCounter, Calcolatrice } from "src/LikeCounter";
 import { TodoListA } from "src/todolist/TodoListA";
 import meme from "src/distracted-boyfriend.jpg";
 import { TodoListB } from "src/todolist/TodoListB";
@@ -38,6 +38,7 @@ const App = () => {
           <StyledSection>
             <StyledSectionHeader>Counter</StyledSectionHeader>
             <LikeCounter />
+            {false && <Calcolatrice />}
           </StyledSection>
           <StyledSection>
             <StyledSectionHeader>Title Changer</StyledSectionHeader>
