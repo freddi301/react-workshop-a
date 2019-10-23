@@ -9,6 +9,7 @@ import { LikeCounter, Calcolatrice } from "src/LikeCounter";
 import { TodoListA } from "src/todolist/TodoListA";
 import meme from "src/distracted-boyfriend.jpg";
 import { TodoListB } from "src/todolist/TodoListB";
+import { TodoListC } from "src/todolist/TodoListC";
 
 /**
  * App root component
@@ -59,6 +60,10 @@ const App = () => {
           <StyledSection>
             <StyledSectionHeader>Todo List B</StyledSectionHeader>
             <TodoListB />
+          </StyledSection>
+          <StyledSection>
+            <StyledSectionHeader>Todo List C</StyledSectionHeader>
+            <TodoListC />
           </StyledSection>
           <StyledImageEmbed src="https://imgs.xkcd.com/comics/real_programmers.png" />
           <StyledFooter>{copyLeft} Frederik Batuna - October 2019</StyledFooter>

@@ -769,6 +769,166 @@ function Todo({ todo: { id, isDone, text }, dispatch }: TodoProps) {
 }
 ```
 
+### TodoListC
+
+Andiamo ad osservare le performance della TodoListB.
+Se nel pannello sviluppatori del browser, attiviamo la funzionalita `⚛️Components`->`⚙General`->`[✓] Highlight updates when components render.`,
+ed interagiamo con il componente, possiamo vedere che ci sono dei rerender superflui, ovvero che ad ogni click, tutte le righe vengono aggiornate.
+Per un numero cosi basso di componenti questo non è un problema.
+Quando invece si tratta di applicazioni più grandi, complesse e sopratutto con molti dati tabulari, diventa imperativo ridurre al minimo il numero di rerender.
+
+Creiamo il file `src/todolist/TodoListC.tsx` incollandoci dentro il contenuto di `src/todolist/TodoListB`, apportando poi le modifiche in modo incrementale.
+
+Il primo passo che andremo a fare è la memoizzazione del componente `Todo`. Questo vuol dire fare in modo che il componente faccia un rerender solo se le props passategli cambiano.
+
+Utilizzeremo [React.memo](https://it.reactjs.org/docs/react-api.html#reactmemo):
+
+```typescript
+import React, { useReducer, Dispatch, memo } from "react"; // aggiunta import
+
+const TodoMemo = memo(Todo)(
+  // versione memizzata del componente
+
+  <TodoMemo key={todo.id} todo={todo} dispatch={dispatch} />
+); // richiamo della versione memizzata
+```
+
+Ora si puo può osservare come il numero di rerender sia diminuito notevolmente.
+Su viste tabulari o a lista questo ha un grande impatto di performance.
+Usare la memoizzazione solo dove necessario, bisogna tenere conto che anche la memoizzazione ha un costo, quindi controllare sempre con il profiler la variazione di performance.
+
+La memoizzazione è possibile anche all'interno di un componente, come ad esempio per i callback (es: onClick)
+
+```typescript
+function Todo({ todo: { id, isDone, text }, dispatch }: TodoProps) {
+  // a livello logico si puo immaginare che useCallback non abbia nessun effetto
+  // in pratica, il suo effetto è quello di non creare una nuova istanza della funzione
+  // ad ogni rerender, a meno che i valori da cui dipende non cambino
+  // useCallback è una hook di memoizzazione per le callback
+  // primo parametro: una funzione che si vuole memoizzare
+  // secondo parametro: array dei valori utilizzati dalla funzione (chiamate anche dipendenze)
+  // ritorno: la funzione del primo parametro
+  // https://it.reactjs.org/docs/hooks-reference.html#usecallback
+  // esempio logicamente equivalente
+  // const remove = () => dispatch({ type: "remove", id })
+  // const remove = useCallback(() => dispatch({ type: "remove", id }), [dispatch]);
+  const toggle = useCallback(() => {
+    if (isDone) {
+      dispatch({ type: "undone", id });
+    } else {
+      dispatch({ type: "done", id });
+    }
+  }, [dispatch, isDone]);
+  const remove = useCallback(() => {
+    dispatch({ type: "remove", id });
+  }, [dispatch]);
+  return (
+    <div key={id}>
+      <input type="checkbox" name={id} checked={isDone} onChange={toggle} />
+      {text}
+      <button onClick={remove}>🗑</button>
+    </div>
+  );
+}
+```
+
+Aggiungiamo la funzionalita di poter aggiungere un nuovo todo
+
+```typescript
+type AddTodoProps = {
+  onAdd(text: string): void;
+};
+
+function AddTodo({ onAdd }: AddTodoProps) {
+  const [text, setText] = useState("");
+  return (
+    <div>
+      <input value={text} onChange={event => setText(event.target.value)} />
+      <button
+        // questa callback non la memoizziamo poiche cambierà molto spesso
+        // visto che dipende dalla variabile text che cambia ad ogni pressione del tasto,
+        // il costo della memoizzazione supererebbe i benefici
+        onClick={() => onAdd(text)}
+      >
+        add
+      </button>
+    </div>
+  );
+}
+
+const AddTodoMemo = memo(AddTodo);
+
+export function TodoListC() {
+  const [todos, dispatch] = useReducer(todoListReducer, initialTodos);
+  const addTodo = useCallback(
+    (text: string) => {
+      const id = Math.random().toString(16); // il .toString(16) ci da la rappresentazione esadecimale
+      dispatch({ type: "add", id, text });
+    },
+    [dispatch]
+  );
+  return (
+    <div>
+      <AddTodoMemo onAdd={addTodo} />
+      {Object.values(todos).map(todo => (
+        <TodoMemo key={todo.id} todo={todo} dispatch={dispatch} /> // richiamo della versione memoizzata
+      ))}
+    </div>
+  );
+}
+```
+
+Aggiungiamo anche la funzionalitadi export CSV
+
+```typescript
+// https://it.wikipedia.org/wiki/Comma-separated_values
+function todosToCSV(todos: TodoState, delimiter: string = ";"): string {
+  const columns = ["id", "isDone", "text"] as const; // senza `as const` il tipo sarebbe meno preciso
+  const columnsRow = columns.join(delimiter);
+  const rows = Object.values(todos)
+    .map(todo => columns.map(column => String(todo[column])).join(delimiter))
+    .join("\n");
+  return `${columnsRow}\n${rows}`;
+}
+
+export function TodoListC() {
+  const [todos, dispatch] = useReducer(todoListReducer, initialTodos);
+  const addTodo = useCallback(
+    (text: string) => {
+      const id = Math.random()
+        .toString(16)
+        .slice(2)
+        .toUpperCase(); // il .toString(16) ci da la rappresentazione esadecimale
+      dispatch({ type: "add", id, text });
+    },
+    [dispatch]
+  );
+  // useMemo è una hook di memizzazione
+  // a livello logico si può immaginare che non abbia nessun effetto
+  // praticamente ci permette di evitare il ricalcolo non necessario
+  // primo parametro: una lambda che torna un valore
+  // secondo parametro: lista delle dipendenze del valore calcolato
+  // ritorno: il valore calcolato
+  // https://it.reactjs.org/docs/hooks-reference.html#usememo
+  // esempio logicamente equivalente
+  // const csv = todosToCSV(todos)
+  // const csv = useMemo(() => todosToCSV(todos), [todos]);
+  const csv = useMemo(() => todosToCSV(todos), [todos]);
+  return (
+    <div>
+      <AddTodoMemo onAdd={addTodo} />
+      {Object.values(todos).map(todo => (
+        <TodoMemo key={todo.id} todo={todo} dispatch={dispatch} /> // richiamo della versione memoizzata
+      ))}
+      <details>
+        <summary>csv export</summary>
+        <pre>{csv}</pre>
+      </details>
+    </div>
+  );
+}
+```
+
 # FAQ
 
 ## Nomenclatura hooks
@@ -800,25 +960,23 @@ I file con estensione .d.ts sono file che possiamo utilizzare per arricchire la 
 
 # Troubleshooting
 
+### `yarn start` fallisce su windows
+
+asicurarsi di avere nel Path di sistema `C:\Windows\system32`, chidere e riaprire tutto e ritentare
+
 # TODO
 
-- [ ] todo list
+- [ ] context (user session)
+- [ ] react spring useSpring (accordion, svg)
+- [ ] fetch custom hook (with cancellation signal)
 - [ ] portal (modale)
 - [ ] useDebounce (ricerca)
-- [ ] memo (lista)
-- [ ] context (user session)
 - [ ] render prop (lista eterogena)
-- [ ] useReducer (fetch custom hook)
-- [ ] useCallback (on click)
-- [ ] useMemo (derived prop)
 - [ ] useRef (dom manipulation)
-- [ ] (fetch)
 - [ ] hmr
 - [ ] hidden attribute
 - [ ] git flow
-- [ ] fetch cancel signal
 - [ ] process.env
-- [ ] spiegazione cra
 - [ ] useDebugValue
 - [ ] useDebugPropChanges
 - [ ] useLocalStorage (dark - white theme)
@@ -830,7 +988,6 @@ I file con estensione .d.ts sono file che possiamo utilizzare per arricchire la 
 - [ ] useUndoReducer
 - [ ] state strategy (useState, useUndoState, useLocalStorage)
 - [ ] useUndoState
-- [ ] react spring useSpring (accordion, svg)
 - [ ] useScript
 - [ ] useKeyPress
 - [ ] useOnScreen (insfinites scroll)
