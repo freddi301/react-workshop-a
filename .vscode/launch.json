@@ -10,7 +10,7 @@
       "name": "Launch Chrome against localhost",
       "url": "http://localhost:3000",
       "webRoot": "${workspaceFolder}",
-      "runtimeExecutable": "/usr/bin/chromium" // on linux, adjust for your system
+      "runtimeExecutable": "/usr/bin/chromium" // on linux, adjust for your system, on windows try do delete this line first
     }
   ]
 }

@@ -253,7 +253,7 @@ E possibile usare il debugger direttamente in vscode, velocizzando cosi molto il
     "name": "Launch Chrome against localhost",
     "url": "http://localhost:3000",
     "webRoot": "${workspaceFolder}",
-    "runtimeExecutable": "/usr/bin/chromium" // on linux, adjust for your system
+    "runtimeExecutable": "/usr/bin/chromium" // on linux, adjust for your system, on windows try do delete this line first
   }
   ```
 - chiudere tutte le finestre di chrome aperte (altrimenti non funzionerà)
@@ -263,6 +263,8 @@ E possibile usare il debugger direttamente in vscode, velocizzando cosi molto il
     - si fa cliccando alla sinistra del numero della riga quando compare un `⏺` rosso
   - sperimetnare
   - è molto consigliato usare il debugger invece dei `console.log`
+
+per firefox [link](https://marketplace.visualstudio.com/items?itemName=firefox-devtools.vscode-firefox-debug)
 
 ## Title Changer
 
@@ -928,6 +930,8 @@ export function TodoListC() {
   );
 }
 ```
+
+ESERCITAZIONE: aggiungere la possibilità di modifica del testo dei singoli todo
 
 # FAQ
 

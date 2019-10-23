@@ -126,7 +126,7 @@ function Todo({ todo: { id, isDone, text }, dispatch }: TodoProps) {
     } else {
       dispatch({ type: "done", id });
     }
-  }, [dispatch, isDone]);
+  }, [dispatch, isDone, id]);
   const remove = useCallback(() => {
     dispatch({ type: "remove", id });
   }, [dispatch]);
