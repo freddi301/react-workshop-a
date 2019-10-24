@@ -129,7 +129,7 @@ function Todo({ todo: { id, isDone, text }, dispatch }: TodoProps) {
   }, [dispatch, isDone, id]);
   const remove = useCallback(() => {
     dispatch({ type: "remove", id });
-  }, [dispatch]);
+  }, [dispatch, id]);
   return (
     <div key={id}>
       <input type="checkbox" name={id} checked={isDone} onChange={toggle} />

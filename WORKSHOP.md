@@ -573,6 +573,24 @@ Si consiglia di sperimentare, e far entrare nella propria routine entrambi gli s
   - `"typescript.tsdk": "./node_modules/typescript/lib",` questo dice a vscode di utilizzare la versione di typescript usata dal progetto (vscode ha una propria versione di typescript istallata), cosi da prevenire incongruenze
   - `"search.exclude": { "**/.git": true, "**/node_modules": true }` se nella cartella del progetto sono presenti cartelle che volete escludere dalla ricerca globale (`ctrl+shift+f`)
 - aprendo le impostazioni (`ctrl+,`) e cercando `breadcrumb` spuntare la prima voce, si abilita il breadcrumb di navigazione (in alto per ogni file) molto utile per navigare all'interno dei file
+- abilitare eslint (è un linter, ovvero ci avvisa quando sbagliamo a scrivere)
+  - creare in file `.eslintrc`
+    ```json
+    {
+      "extends": ["react-app", "plugin:prettier/recommended"]
+    }
+    ```
+  - lanciare `yarn add -D eslint-config-prettier eslint-plugin-prettier`
+  - aggiungere al file `.vscode/settings.json`
+    ```json
+    "eslint.alwaysShowStatus": true,
+    "eslint.validate": [
+      "javascript",
+      "javascriptreact",
+      { "language": "typescript", "autoFix": true },
+      { "language": "typescriptreact", "autoFix": true }
+    ]
+    ```
 
 ## More Shortcuts
 
