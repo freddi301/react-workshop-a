@@ -167,6 +167,7 @@ andremo a realizzare bottone `like` con conteggio di click
   - salva, verifica, commit
 
 - ESERCITAZIONE: creare un componente con due counter che a fianco visualizza la loro somma
+- ESERCITAZIONE: creare un componentec che prende il numero più piccolo trad ue counter
 
 ## Formattazione automatica
 
@@ -330,7 +331,7 @@ E la soluzione [css-in-js](https://codeburst.io/styling-in-react-css-in-js-47a68
 Css-in-js permette di organizzare meglio gli stili, offre strumenti più potenti ed evita tutta una serie di problematiche come la collisione dei nome delle classi.
 
 - installare l'estensione styled-component
-- istallare la dipendenza `yarn add styled-component` (ci fornisce autoformattazione, colorazione del codice, e suggerimenti)
+- istallare la dipendenza `yarn add styled-components` (ci fornisce autoformattazione, colorazione del codice, e suggerimenti)
 - istallare l'integrazione con typescript `yarn add -D @types/styled-components`
 
 creare il file `src/Arcobaleno.tsx`

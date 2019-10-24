@@ -34,3 +34,22 @@ export function Calcolatrice() {
     </div>
   );
 }
+
+// ESERCITAZIONE
+export function CounterCoppie() {
+  const [numeroMaschi, setNumeroMaschi] = useState(0);
+  const [numeroFemmine, seNumeroFemmine] = useState(0);
+  const coppie = Math.min(numeroMaschi, numeroFemmine);
+
+  return (
+    <div>
+      <button onClick={() => setNumeroMaschi(numeroMaschi + 1)}>
+        {numeroMaschi}👨{" "}
+      </button>
+      <button onClick={() => seNumeroFemmine(numeroFemmine + 1)}>
+        {numeroFemmine}🤦
+      </button>
+      {coppie}👪
+    </div>
+  );
+}
