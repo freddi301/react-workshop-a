@@ -35,7 +35,7 @@ function todoListReducer(state: TodoState, action: TodoAction): TodoState {
     case "add": {
       // il corpo dei case è racchiuso in un blocco di codice per isolare le variabili
       const { id, text } = action;
-      return { ...state, [id]: { id, isDone: false, text } };
+      return { ...state, [id]: { id, isDone: false, text } }; // combinazione di destructuring, spread operator e computed property
     }
     case "remove": {
       const { id } = action;
