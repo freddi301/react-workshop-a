@@ -4,13 +4,18 @@ import styled, { ThemeProvider, css } from "styled-components/macro";
 import { useMyTheme } from "src/theme/mytheme";
 import { ThemeSwitcher } from "src/theme/ThemeSwitcher";
 import { Arcobaleno } from "src/Arcobaleno";
-import { TitleChanger } from "src/TitleChanger";
+import {
+  TitleChanger,
+  EasterCatLuca,
+  EasterCatLoris,
+  EasterCatVlad,
+  AltF4Prank
+} from "src/TitleChanger";
 import { LikeCounter, Calcolatrice, CounterCoppie } from "src/LikeCounter";
 import { TodoListA } from "src/todolist/TodoListA";
 import meme from "src/distracted-boyfriend.jpg";
 import { TodoListB } from "src/todolist/TodoListB";
 import { TodoListC } from "src/todolist/TodoListC";
-
 /**
  * App root component
  */
@@ -45,6 +50,14 @@ const App = () => {
           <StyledSection>
             <StyledSectionHeader>Title Changer</StyledSectionHeader>
             <TitleChanger />
+            {false && (
+              <>
+                Loris: <EasterCatLoris />
+                Luca: <EasterCatLuca />
+                Vlad: <EasterCatVlad />
+              </>
+            )}
+            {false && <AltF4Prank />}
           </StyledSection>
           <StyledSection>
             <StyledSectionHeader>styled-components</StyledSectionHeader>

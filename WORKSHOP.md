@@ -300,6 +300,10 @@ per firefox [link](https://marketplace.visualstudio.com/items?itemName=firefox-d
 - ed inseriamo il componente in `src/App.tsx`
 - sperimentare il funzionamento, salva, commit
 
+ESERCITAZIONE: creare un input che se dovesse contenere il testo `cat` deve aprire un nuovo tab all'indirizzo `https://cataas.com/cat/gif`
+
+ESERCITAZIONE: creare due input, se la concatenazione dei valori dei due input è uguale alla stringa `altf4` chiudere il tab
+
 ## vscode utilities
 
 - rinominare una variabile o l'attributo di un oggetto
