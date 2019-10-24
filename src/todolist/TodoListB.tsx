@@ -56,7 +56,7 @@ function todoListReducer(state: TodoState, action: TodoAction): TodoState {
   }
 }
 
-const initialTodos: Record<string, Todo> = {
+const initialTodos: TodoState = {
   "1": {
     id: "1",
     isDone: true,
@@ -100,7 +100,7 @@ type TodoProps = {
 
 function Todo({ todo: { id, isDone, text }, dispatch }: TodoProps) {
   return (
-    <div key={id}>
+    <div>
       <input
         type="checkbox"
         name={id} // il name è necesssario per il funzionamento corretto
