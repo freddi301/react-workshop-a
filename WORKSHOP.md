@@ -29,6 +29,7 @@
 
 ## Nozioni
 
+- cheat-sheet javascript features [jsfeatures.in](https://jsfeatures.in/)
 - [destructuring](https://developer.mozilla.org/it/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment)
 - [arrow function](https://developer.mozilla.org/it/docs/Web/JavaScript/Reference/Functions_and_function_scope/Arrow_functions)
 - [react hoooks](https://it.reactjs.org/docs/hooks-intro.html)
